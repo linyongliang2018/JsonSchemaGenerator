@@ -1,18 +1,33 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>com.github.linyongliang2018.jsonschemagenerator</id>
-    <name>JsonSchemaGenerator Template</name>
-    <vendor>linyongliang2018</vendor>
+    <id>com.project.projectHelper.jsonschemagenerator</id>
+    <name>JsonSchemaGenerator</name>
+    <vendor>linyongliang</vendor>
 
+    <!--表示该插件依赖于 IntelliJ IDEA 平台模块，该模块提供了一些基础的服务和工具类，如项目管理、VFS、跨平台 UI 等-->
     <depends>com.intellij.modules.platform</depends>
-
-    <resource-bundle>messages.MyBundle</resource-bundle>
+    <!--表示该插件依赖于语言模块，该模块提供了代码编辑相关的服务和工具类，如语法高亮、代码分析、代码重构等-->
+    <depends>com.intellij.modules.lang</depends>
+    <!-- 表示该插件依赖于 Java 模块，该模块提供了处理 Java 代码和项目的工具和服务，如 Java 代码编辑器和编译器、JUnit 测试、Maven 和 Gradle 支持等-->
+    <depends>com.intellij.modules.java</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.github.linyongliang2018.jsonschemagenerator.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
     </extensions>
 
-    <applicationListeners>
-        <listener class="com.github.linyongliang2018.jsonschemagenerator.listeners.MyFrameStateListener" topic="com.intellij.ide.FrameStateListener"/>
-    </applicationListeners>
+    <actions>
+        <!-- Add your actions here -->
+        <action id="initRequestJsonSchema"
+                class="com.project.projectHelper.jsonschemagenerator.services.RequestJsonGenerate"
+                text="InitRequestJsonSchema"
+                description="InitRequestJsonSchema">
+            <add-to-group group-id="EditorLangPopupMenu" anchor="first"/>
+        </action>
+
+        <action id="initResponseJsonSchema"
+                class="com.project.projectHelper.jsonschemagenerator.services.ResponseJsonGenerate"
+                text="InitResponseJsonSchema"
+                description="InitResponseJsonSchema">
+            <add-to-group group-id="EditorLangPopupMenu" anchor="after" relative-to-action="initRequestJsonSchema"/>
+        </action>
+    </actions>
 </idea-plugin>

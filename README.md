@@ -1,6 +1,5 @@
 # JsonSchemaGenerator
 
-![Build](https://github.com/linyongliang2018/JsonSchemaGenerator/workflows/Build/badge.svg)
 [![Version](https://img.shields.io/jetbrains/plugin/v/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
 
@@ -17,11 +16,7 @@
 - [ ] Click the <kbd>Watch</kbd> button on the top of the [IntelliJ Platform Plugin Template][template] to be notified about releases containing new features and fixes.
 
 <!-- Plugin description -->
-This Fancy IntelliJ Platform Plugin is going to be your implementation of the brilliant ideas that you have.
-
-This specific section is a source for the [plugin.xml](/src/main/resources/META-INF/plugin.xml) file which will be extracted by the [Gradle](/build.gradle.kts) during the build process.
-
-To keep everything working, do not remove `<!-- ... -->` sections. 
+配合chatGpt，第一次用kotlin写一个小工具，有点小激动，只能惊叹chatGpt太强大了。
 <!-- Plugin description end -->
 
 ## Installation
@@ -32,9 +27,6 @@ To keep everything working, do not remove `<!-- ... -->` sections.
   <kbd>Install Plugin</kbd>
   
 - Manually:
-
-  Download the [latest release](https://github.com/linyongliang2018/JsonSchemaGenerator/releases/latest) and install it manually using
-  <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
 
 
 ---

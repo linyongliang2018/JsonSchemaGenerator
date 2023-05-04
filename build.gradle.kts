@@ -6,6 +6,7 @@ fun environment(key: String) = providers.environmentVariable(key)
 
 plugins {
     id("java") // Java support
+    id("com.github.johnrengelman.shadow") version "8.1.1"
     alias(libs.plugins.kotlin) // Kotlin support
     alias(libs.plugins.gradleIntelliJPlugin) // Gradle IntelliJ Plugin
     alias(libs.plugins.changelog) // Gradle Changelog Plugin
@@ -13,12 +14,23 @@ plugins {
     alias(libs.plugins.kover) // Gradle Kover Plugin
 }
 
-group = properties("pluginGroup").get()
 version = properties("pluginVersion").get()
 
 // Configure project's dependencies
 repositories {
+    // 依赖使用阿里云 maven 源
+    maven {
+        setUrl("https://maven.aliyun.com/repository/public/")
+    }
+    maven {
+        setUrl("https://maven.aliyun.com/repository/spring/")
+    }
     mavenCentral()
+}
+
+dependencies{
+        implementation("org.springframework:spring-web:5.3.27")
+    implementation("javax.validation:validation-api:2.0.1.Final")
 }
 
 // Dependencies are managed with Gradle version catalog - read more: https://docs.gradle.org/current/userguide/platforms.html#sub:version-catalog
@@ -85,8 +97,8 @@ tasks {
 
         val changelog = project.changelog // local variable for configuration cache compatibility
         // Get the latest available change notes from the changelog file
-        changeNotes = properties("pluginVersion").map { pluginVersion ->
-            with(changelog) {
+        changeNotes = properties("pluginVersion").map(fun(pluginVersion: String): String {
+            return with(changelog) {
                 renderItem(
                     (getOrNull(pluginVersion) ?: getUnreleased())
                         .withHeader(false)
@@ -94,7 +106,7 @@ tasks {
                     Changelog.OutputType.HTML,
                 )
             }
-        }
+        })
     }
 
     // Configure UI tests plugin
@@ -121,3 +133,8 @@ tasks {
         channels = properties("pluginVersion").map { listOf(it.split('-').getOrElse(1) { "default" }.split('.').first()) }
     }
 }
+
+tasks.withType<JavaCompile> {
+    options.encoding = "UTF-8"
+}
+
